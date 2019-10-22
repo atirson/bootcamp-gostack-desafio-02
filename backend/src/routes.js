@@ -1,9 +1,15 @@
 import { Router } from 'express';
+import AdminSessionController from './app/controllers/AdminSessionController';
+import StudentController from './app/controllers/StudentController';
+
+import AuthMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.get('/', (req, res) => {
-  return res.json({ message: 'Hello New Tc este' });
-});
+routes.post('/sessions', AdminSessionController.store);
+
+routes.use(AuthMiddleware);
+
+routes.post('/students', StudentController.store);
 
 export default routes;
